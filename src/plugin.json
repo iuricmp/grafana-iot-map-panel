@@ -1,0 +1,42 @@
+{
+  "$schema": "https://raw.githubusercontent.com/grafana/grafana/master/docs/sources/developers/plugins/plugin.schema.json",
+  "type": "panel",
+  "name": "tms-map",
+  "id": "iuricmp-tms-map",
+  "info": {
+    "description": "Map plugin for Transportation Management Systems. Truck and deliveries monitoring.",
+    "author": {
+      "name": "Iuri Pereira",
+      "url": "https://www.linkedin.com/in/iuri-pereira-cpm/"
+    },
+    "keywords": [
+      "TMS",
+      "Truck",
+      "Deliveries",
+      "Transporation",
+      "Logistics",
+      "GPS"
+    ],
+    "logos": {
+      "small": "img/logo.svg",
+      "large": "img/logo.svg"
+    },
+    "links": [
+      {
+        "name": "Website",
+        "url": "https://github.com/grafana/grafana-starter-panel"
+      },
+      {
+        "name": "License",
+        "url": "https://github.com/grafana/grafana-starter-panel/blob/master/LICENSE"
+      }
+    ],
+    "screenshots": [],
+    "version": "%VERSION%",
+    "updated": "%TODAY%"
+  },
+  "dependencies": {
+    "grafanaDependency": ">=7.0.0",
+    "plugins": []
+  }
+}
