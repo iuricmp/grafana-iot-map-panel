@@ -1,0 +1,20 @@
+version: '3'
+
+volumes:
+  grafana_data:
+      driver: local
+
+services:
+  grafana:
+      image: grafana/grafana:7.4.3
+      container_name: grafana_tms_map
+      volumes:
+        - ./dist:/var/lib/grafana/plugins/tms-map-panel
+      ports:
+        - 3000:3000
+      environment:
+        - GF_SECURITY_ADMIN_USER=admin
+        - GF_SECURITY_ADMIN_PASSWORD=admin
+        - GF_SERVER_DOMAIN=localhost
+        - GF_SERVER_HTTP_PORT=3000
+        - GF_SERVER_PROTOCOL=http
