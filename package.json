@@ -1,5 +1,5 @@
 {
-  "name": "iuricmp-tms-map",
+  "name": "iuricmp-tms-map-panel",
   "version": "1.0.0",
   "description": "Map plugin for Transportation Management Systems. Truck and deliveries monitoring.",
   "scripts": {

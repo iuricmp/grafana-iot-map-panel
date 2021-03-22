@@ -1,16 +1,22 @@
 # Grafana Panel Plugin Template
 
-[![Build](https://github.com/grafana/grafana-starter-panel/workflows/CI/badge.svg)](https://github.com/grafana/grafana-starter-panel/actions?query=workflow%3A%22CI%22)
+[![Node.js CI](https://github.com/iuricmp/grafana-tms-map-panel/actions/workflows/node.js.yml/badge.svg)](https://github.com/iuricmp/grafana-tms-map-panel/actions/workflows/node.js.yml)
 
-This template is a starting point for building Grafana Panel Plugins in Grafana 7.0+
+## Development
 
-## What is Grafana Panel Plugin?
+### What is Grafana Panel Plugin?
 
 Panels are the building blocks of Grafana. They allow you to visualize data in different ways. While Grafana has several types of panels already built-in, you can also build your own panel, to add support for other visualizations.
 
 For more information about panels, refer to the documentation on [Panels](https://grafana.com/docs/grafana/latest/features/panels/panels/)
 
-## Getting started
+### Prerequisites
+
+- Grafana >=7.0
+- NodeJS >=14
+- yarn
+
+### Getting started
 
 1. Install dependencies
 
@@ -36,7 +42,7 @@ For more information about panels, refer to the documentation on [Panels](https:
    yarn build
    ```
 
-## Learn more
+### Learn more
 
 - [Build a panel plugin tutorial](https://grafana.com/tutorials/build-a-panel-plugin)
 - [Grafana documentation](https://grafana.com/docs/)
