@@ -1,0 +1,10 @@
+{
+  "extends": ["@grafana/eslint-config"],
+  "root": true,
+  "rules": {
+    // "no-only-tests/no-only-tests": "error",
+    "react/prop-types": "off",
+    "jsx-quotes": [1, "prefer-single"],
+    "quotes": [1, "single"]
+  }
+}
