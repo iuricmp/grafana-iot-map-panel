@@ -2,13 +2,23 @@ import React from 'react';
 import { PanelProps } from '@grafana/data';
 import { SimpleOptions } from 'types';
 import { css, cx } from 'emotion';
-import { stylesFactory, useTheme } from '@grafana/ui';
+import { stylesFactory } from '@grafana/ui';
+import { TmsMap } from './components/map/TmsMap';
+import './style.css'
+import { CustomMarkerProp } from 'components/map/CustomMarkerProp';
 
-interface Props extends PanelProps<SimpleOptions> {}
+interface Props extends PanelProps<SimpleOptions> { }
 
-export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) => {
-  const theme = useTheme();
+export const SimplePanel: React.FC<Props> = ({ options, data = [], width, height }) => {
   const styles = getStyles();
+
+  const testData: Array<CustomMarkerProp> = [
+    { label: 'VHE0101', latitude: 37.777912, longitude: -122.4172949, datetime: '2021-03-27 09:27:02' },
+    { label: 'MAI9383', latitude: 37.776021, longitude: -122.4171949, datetime: '2020-11-23 13:27:02' },
+  ]
+
+  if (!options.mapboxToken) return <h3>A valid API access token is required to use Mapbox data</h3>
+
   return (
     <div
       className={cx(
@@ -19,31 +29,16 @@ export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) =
         `
       )}
     >
-      <svg
-        className={styles.svg}
+      <TmsMap
+        vpDefined={options.vpDefined}
+        vpLat={options.vpLat}
+        vpLng={options.vpLng}
+        vpZoom={options.vpZoom}
+        token={options.mapboxToken}
+        styleUrl={options.mapboxStyleUrl}
         width={width}
         height={height}
-        xmlns="http://www.w3.org/2000/svg"
-        xmlnsXlink="http://www.w3.org/1999/xlink"
-        viewBox={`-${width / 2} -${height / 2} ${width} ${height}`}
-      >
-        <g>
-          <circle style={{ fill: `${theme.isLight ? theme.palette.greenBase : theme.palette.blue95}` }} r={100} />
-        </g>
-      </svg>
-
-      <div className={styles.textBox}>
-        {options.showSeriesCount && (
-          <div
-            className={css`
-              font-size: ${theme.typography.size[options.seriesCountSize]};
-            `}
-          >
-            Number of series: {data.series.length}
-          </div>
-        )}
-        <div>Text option value: {options.text}</div>
-      </div>
+        data={testData} />
     </div>
   );
 };

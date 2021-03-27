@@ -16,9 +16,14 @@
     "@grafana/data": "latest",
     "@grafana/toolkit": "latest",
     "@grafana/ui": "latest",
+    "@types/mapbox-gl": "^2.1.1",
     "emotion": "10.0.27"
   },
   "engines": {
     "node": ">=14"
+  },
+  "dependencies": {
+    "mapbox-gl": "^2.1.1",
+    "react-map-gl": "^6.1.10"
   }
 }

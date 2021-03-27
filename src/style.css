@@ -1,0 +1,7 @@
+.mapboxgl-popup-content {
+  background: black !important;
+}
+
+.mapboxgl-popup-close-button {
+  right: -5px !important;
+}
