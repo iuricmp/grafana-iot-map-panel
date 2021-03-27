@@ -25,19 +25,19 @@ export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOption
       path: 'vpLat',
       name: 'Initial Default Latitude',
       defaultValue: '37.776021',
-      showIf: config => config.vpDefined
+      showIf: config => config.vpDefined,
     })
     .addTextInput({
       path: 'vpLng',
       name: 'Initial Default Longitude',
       defaultValue: '-122.4171949',
-      showIf: config => config.vpDefined
+      showIf: config => config.vpDefined,
     })
     .addTextInput({
       path: 'vpZoom',
       name: 'Initial Default Zoom',
       defaultValue: '14',
-      showIf: config => config.vpDefined
+      showIf: config => config.vpDefined,
     })
     .addRadio({
       path: 'seriesCountSize',
@@ -58,7 +58,7 @@ export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOption
             label: 'Large',
           },
         ],
-      },//showSeriesCount
-      showIf: config => config.vpDefined, 
+      }, //showSeriesCount
+      showIf: config => config.vpDefined,
     });
 });
