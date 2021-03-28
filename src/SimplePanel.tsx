@@ -3,7 +3,7 @@ import { PanelProps } from '@grafana/data';
 import { SimpleOptions } from 'types';
 import { css, cx } from 'emotion';
 import { stylesFactory } from '@grafana/ui';
-import { TmsMap } from './components/map/TmsMap';
+import { TmsMap } from './components/map/CustomMap';
 import './style.css';
 import { useData } from './hooks/MapHooks';
 
