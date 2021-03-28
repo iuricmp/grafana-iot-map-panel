@@ -5,17 +5,14 @@ import { css, cx } from 'emotion';
 import { stylesFactory } from '@grafana/ui';
 import { TmsMap } from './components/map/TmsMap';
 import './style.css';
-import { CustomMarkerProp } from 'components/map/CustomMarkerProp';
+import { useData } from './hooks/MapHooks';
 
 interface Props extends PanelProps<SimpleOptions> {}
 
-export const SimplePanel: React.FC<Props> = ({ options, data = [], width, height }) => {
+export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) => {
   const styles = getStyles();
 
-  const testData: CustomMarkerProp[] = [
-    { label: 'VHE0101', latitude: 37.777912, longitude: -122.4172949, datetime: Date.parse('2021-03-27 09:27:02') },
-    { label: 'MAI9383', latitude: 37.776021, longitude: -122.4171949, datetime: Date.parse('2020-11-23 13:27:02') },
-  ];
+  const mapboxData = useData(data);
 
   if (!options.mapboxToken) {
     return <h3>A valid API access token is required to use Mapbox data</h3>;
@@ -40,7 +37,7 @@ export const SimplePanel: React.FC<Props> = ({ options, data = [], width, height
         styleUrl={options.mapboxStyleUrl}
         width={width}
         height={height}
-        data={testData}
+        data={mapboxData}
       />
     </div>
   );

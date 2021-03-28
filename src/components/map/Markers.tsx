@@ -16,10 +16,10 @@ const formatTooltip = (item: CustomMarkerProp) => {
 
 // Important for perf: the markers never change, avoid rerender when the map viewport changes
 // function Markers(props: Props) {
-const Markers = (props: Props) => {
+function Markers(props: Props): JSX.Element {
   const { data, onClick } = props;
 
-  return data.map((item, index) => (
+  const mp = data.map((item, index) => (
     <Marker
       offsetLeft={-10}
       offsetTop={-20}
@@ -32,6 +32,8 @@ const Markers = (props: Props) => {
       </Tooltip>
     </Marker>
   ));
-};
+
+  return <>{mp}</>;
+}
 
 export default React.memo(Markers);
