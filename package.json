@@ -1,7 +1,7 @@
 {
-  "name": "iuricmp-tms-map-panel",
+  "name": "grafana-iot-map-panel",
   "version": "1.0.0",
-  "description": "Map plugin for Transportation Management Systems. Truck and deliveries monitoring.",
+  "description": "A panel for Grafana that visualizes IOT GPS points on an interactive map.",
   "scripts": {
     "build": "grafana-toolkit plugin:build",
     "test": "grafana-toolkit plugin:test",

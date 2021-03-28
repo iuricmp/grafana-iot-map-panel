@@ -7,9 +7,9 @@ volumes:
 services:
   grafana:
       image: grafana/grafana:7.4.3
-      container_name: grafana_tms_map
+      container_name: grafana_iot_map_panel
       volumes:
-        - ./dist:/var/lib/grafana/plugins/tms-map-panel
+        - ./dist:/var/lib/grafana/plugins/grafana_iot_map_panel
       ports:
         - 3000:3000
       environment:

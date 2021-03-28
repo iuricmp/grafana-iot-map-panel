@@ -1,22 +1,15 @@
 {
   "$schema": "https://raw.githubusercontent.com/grafana/grafana/master/docs/sources/developers/plugins/plugin.schema.json",
   "type": "panel",
-  "name": "TMS Map",
-  "id": "iuricmp-tms-map-panel",
+  "name": "IOT Map",
+  "id": "grafana-iot-map-panel",
   "info": {
-    "description": "Map plugin for Transportation Management Systems. Truck and deliveries monitoring.",
+    "description": "A panel for Grafana that visualizes IOT GPS points on an interactive map.",
     "author": {
       "name": "Iuri Pereira",
       "url": "https://www.linkedin.com/in/iuri-pereira-cpm/"
     },
-    "keywords": [
-      "TMS",
-      "Truck",
-      "Deliveries",
-      "Transporation",
-      "Logistics",
-      "GPS"
-    ],
+    "keywords": ["IOT", "Telemetry", "Monitoring", "Truck", "Map", "Transporation", "Logistics", "GPS", "Mapbox"],
     "logos": {
       "small": "img/logo.svg",
       "large": "img/logo.svg"
@@ -24,11 +17,11 @@
     "links": [
       {
         "name": "Website",
-        "url": "https://github.com/grafana/grafana-starter-panel"
+        "url": "https://github.com/iuricmp/grafana-iot-map-panel"
       },
       {
         "name": "License",
-        "url": "https://github.com/grafana/grafana-starter-panel/blob/master/LICENSE"
+        "url": "https://github.com/iuricmp/grafana-iot-map-panel/blob/master/LICENSE"
       }
     ],
     "screenshots": [],

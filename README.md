@@ -1,9 +1,8 @@
-[![Node.js CI](https://github.com/iuricmp/grafana-tms-map-panel/actions/workflows/node.js.yml/badge.svg)](https://github.com/iuricmp/grafana-tms-map-panel/actions/workflows/node.js.yml)
+[![Node.js CI](https://github.com/iuricmp/grafana-iot-map-panel/actions/workflows/node.js.yml/badge.svg)](https://github.com/iuricmp/grafana-iot-map-panel/actions/workflows/node.js.yml)
 
-# Grafana TMS Map
+# Grafana IOT Map Panel
 
-Grafana map plugin to visualise coordinates as markers for Logistics and TMS (Transportation Management Systems)
-
+A panel for Grafana that visualizes IOT GPS points on an interactive map.
 ## How to use
 
 The query in Grafana can be formatted as `Table` or `Time series` and contain the fields `latitude` and `longitude` or just `lat` and `lon`.
