@@ -6,38 +6,44 @@ export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOption
   return builder
     .addTextInput({
       path: 'mapboxStyleUrl',
-      name: 'Mapbox Style Url',
+      name: 'Style Url',
       description: 'A complete style URL, like mapbox://styles/mapbox/streets-v11',
       defaultValue: 'mapbox://styles/mapbox/dark-v10',
+      category: ['Mapbox'],
     })
     .addTextInput({
       path: 'mapboxToken',
-      name: 'Mapbox Access token',
+      name: 'Access Token',
       description: 'Your Mapbox access tokens are on your Mapbox Account page',
-      defaultValue: '',
+      defaultValue: 'pk.eyJ1IjoiaXVyaWNtcCIsImEiOiJjajc1OGhjYTEwZXRoMnhucmcxeWhvb3FoIn0.XIRpOfUltUn7YGoiboXTdw',
+      category: ['Mapbox'],
     })
     .addBooleanSwitch({
       path: 'vpDefined',
-      name: 'Set initial location',
+      name: 'Initial Location',
       defaultValue: true,
+      category: ['Mapbox'],
     })
     .addTextInput({
       path: 'vpLat',
       name: 'Initial Default Latitude',
       defaultValue: '37.776021',
       showIf: config => config.vpDefined,
+      category: ['Mapbox'],
     })
     .addTextInput({
       path: 'vpLng',
       name: 'Initial Default Longitude',
       defaultValue: '-122.4171949',
       showIf: config => config.vpDefined,
+      category: ['Mapbox'],
     })
     .addTextInput({
       path: 'vpZoom',
       name: 'Initial Default Zoom',
       defaultValue: '14',
       showIf: config => config.vpDefined,
+      category: ['Mapbox'],
     })
     .addRadio({
       path: 'seriesCountSize',
