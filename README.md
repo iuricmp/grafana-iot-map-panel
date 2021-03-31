@@ -59,6 +59,8 @@ To compile the plugin you need:
    docker-compose up --build
    ```
 
+   [http://localhost:3000](http://localhost:3000)
+
    User: `admin` Password: `admin`
 
 ### Learn more
