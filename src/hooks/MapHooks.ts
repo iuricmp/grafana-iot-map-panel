@@ -27,8 +27,8 @@ export const useData = (data: PanelData) => {
   for (let index = 0; index < length; index++) {
     markers.push({
       label: labelValues[index],
-      latitude: latValues[index],
-      longitude: lngValues[index],
+      latitude: +latValues[index],
+      longitude: +lngValues[index],
       datetime: dateValues[index],
     });
   }
