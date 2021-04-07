@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ReactMapGL, { NavigationControl, Popup } from 'react-map-gl';
+import ReactMapGL, { NavigationControl, Popup, ViewportProps } from 'react-map-gl';
 import Markers from './Markers';
 import VehicleInfo from './CustomMarkerPopupInfo';
 import { CustomMarkerProp } from './CustomMarkerProp';
@@ -20,10 +20,11 @@ interface Props {
 
 const fixValue = (value: any): number => Number(parseFloat(value).toFixed(7));
 
-export const TmsMap: React.FC<Props> = ({ token, styleUrl, width, height, vpDefined, vpLat, vpLng, vpZoom, data }) => {
+export const TmsMap: React.FC<Props> = props => {
   const styles = getStyles();
+  const { token, styleUrl, width, height, vpDefined, vpLat, vpLng, vpZoom, data } = props;
 
-  const [viewport, setViewport] = React.useState<any>({
+  const [viewport, setViewport] = React.useState<ViewportProps>({
     width,
     height,
     latitude: fixValue(vpLat),
@@ -35,11 +36,14 @@ export const TmsMap: React.FC<Props> = ({ token, styleUrl, width, height, vpDefi
     () =>
       setViewport({
         ...viewport,
+        latitude: fixValue(vpLat),
+        longitude: fixValue(vpLng),
+        zoom: Number(vpZoom),
         width,
         height,
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [width, height]
+    [width, height, vpLat, vpLng, vpZoom]
   );
 
   const [popupInfo, setPopupInfo] = React.useState<CustomMarkerProp | null>(null);
@@ -49,7 +53,7 @@ export const TmsMap: React.FC<Props> = ({ token, styleUrl, width, height, vpDefi
       {...viewport}
       mapStyle={styleUrl}
       mapboxApiAccessToken={token}
-      onViewportChange={(nextViewport: any) => setViewport(nextViewport)}
+      onViewportChange={(nextViewport: ViewportProps) => setViewport(nextViewport)}
     >
       {popupInfo && (
         <Popup
