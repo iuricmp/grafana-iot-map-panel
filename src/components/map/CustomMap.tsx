@@ -5,6 +5,7 @@ import VehicleInfo from './CustomMarkerPopupInfo';
 import { CustomMarkerProp } from './CustomMarkerProp';
 import { stylesFactory } from '@grafana/ui';
 import { css } from 'emotion';
+import { getBounds } from './mapUtils';
 
 interface Props {
   token: string;
@@ -46,11 +47,14 @@ export const TmsMap: React.FC<Props> = props => {
     [width, height, vpLat, vpLng, vpZoom]
   );
 
+  const MARKERS_BOUNDS = data.length > 0 ? getBounds(data) : [];
+
   const [popupInfo, setPopupInfo] = React.useState<CustomMarkerProp | null>(null);
 
   return (
     <ReactMapGL
       {...viewport}
+      fitBounds={MARKERS_BOUNDS}
       mapStyle={styleUrl}
       mapboxApiAccessToken={token}
       onViewportChange={(nextViewport: ViewportProps) => setViewport(nextViewport)}

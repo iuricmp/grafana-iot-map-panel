@@ -63,6 +63,12 @@ To compile the plugin you need:
 
    User: `admin` Password: `admin`
 
+### Sample Data
+
+- CSV:
+  - <https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv>
+  - <https://raw.githubusercontent.com/iuricmp/grafana-iot-map-panel/master/sample-data.csv>
+
 ### Learn more
 
 - [Build a panel plugin tutorial](https://grafana.com/tutorials/build-a-panel-plugin)
@@ -72,8 +78,8 @@ To compile the plugin you need:
 
 #### Inspirations
 
-- https://github.com/woutervh-/grafana-mapbox
-- https://github.com/zackhsi/react-map-gl-typescript/blob/master/src/components/Map/index.tsx
-- https://grafana.csselectronics.stellarhosted.com/d/hXdWa0VMk/css-playground?orgId=1&from=1612275590939&to=1612276723716
-- https://www.csselectronics.com/screen/page/telematics-dashboard-open-source/language/en#void
-- https://docs.mapbox.com/help/glossary/style-url/
+- <https://github.com/woutervh-/grafana-mapbox>
+- <https://github.com/zackhsi/react-map-gl-typescript/blob/master/src/components/Map/index.tsx>
+- <https://grafana.csselectronics.stellarhosted.com/d/hXdWa0VMk/css-playground?orgId=1&from=1612275590939&to=1612276723716>
+- <https://www.csselectronics.com/screen/page/telematics-dashboard-open-source/language/en#void>
+- <https://docs.mapbox.com/help/glossary/style-url/>
