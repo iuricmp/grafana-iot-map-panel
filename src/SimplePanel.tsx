@@ -3,7 +3,7 @@ import { PanelProps } from '@grafana/data';
 import { SimpleOptions } from 'types';
 import { css, cx } from 'emotion';
 import { stylesFactory } from '@grafana/ui';
-import { TmsMap } from './components/map/CustomMap';
+import { CustomMap } from './components/map/CustomMap';
 import './style.css';
 import { useData } from './hooks/MapHooks';
 
@@ -28,8 +28,8 @@ export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) =
         `
       )}
     >
-      <TmsMap
-        vpDefined={options.vpDefined}
+      <CustomMap
+        vpFitBounds={options.vpFitBounds}
         vpLat={options.vpLat}
         vpLng={options.vpLng}
         vpZoom={options.vpZoom}

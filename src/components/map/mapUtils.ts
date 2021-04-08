@@ -1,11 +1,7 @@
 import { maxBy, minBy } from 'lodash';
 import { CustomMarkerProp } from './CustomMarkerProp';
 
-const getMinOrMax = (
-  markers: CustomMarkerProp[],
-  minOrMax: 'max' | 'min',
-  latOrLng: 'latitude' | 'longitude'
-): number => {
+const getMinOrMax = (markers: CustomMarkerProp[], minOrMax: 'max' | 'min', latOrLng: 'latitude' | 'longitude'): number => {
   if (minOrMax === 'max') {
     return (maxBy(markers, value => value[latOrLng]) as any)[latOrLng];
   } else {
@@ -14,13 +10,6 @@ const getMinOrMax = (
 };
 
 export const getBounds = (markers: CustomMarkerProp[]): [[number, number], [number, number]] => {
-  if (!markers || markers.length === 0) {
-    return [
-      [0, 0],
-      [0, 0],
-    ];
-  }
-
   const maxLat = getMinOrMax(markers, 'max', 'latitude');
   const minLat = getMinOrMax(markers, 'min', 'latitude');
   const maxLng = getMinOrMax(markers, 'max', 'longitude');

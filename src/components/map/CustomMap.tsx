@@ -12,19 +12,28 @@ interface Props {
   styleUrl: string;
   width: number;
   height: number;
-  vpDefined: boolean;
+  vpFitBounds: boolean;
   vpLat: number;
   vpLng: number;
   vpZoom: number;
   data: CustomMarkerProp[];
 }
 
-export const TmsMap: React.FC<Props> = props => {
-  const styles = getStyles();
-  const { token, styleUrl, width, height, vpLat, vpLng, vpZoom, data } = props;
+const getInitialValues = (fitBounds: boolean, markers: CustomMarkerProp[], width: number, height: number, lat: number, lng: number, zoomDefault: number) => {
+  if (fitBounds && markers.length > 0) {
+    const markerBounds = getBounds(markers);
+    const { longitude, latitude, zoom } = new WebMercatorViewport({ width, height }).fitBounds(markerBounds, { padding: 40 });
+    return { longitude, latitude, zoom };
+  } else {
+    return { longitude: Number(lat), latitude: Number(lng), zoom: Number(zoomDefault) };
+  }
+};
 
-  const MARKERS_BOUNDS = getBounds(data);
-  const { longitude, latitude, zoom } = new WebMercatorViewport({ width, height }).fitBounds(MARKERS_BOUNDS);
+export const CustomMap: React.FC<Props> = props => {
+  const styles = getStyles();
+  const { token, styleUrl, width, height, vpLat, vpLng, vpZoom, data, vpFitBounds } = props;
+
+  const { longitude, latitude, zoom } = getInitialValues(vpFitBounds, data, width, height, vpLat, vpLng, vpZoom);
 
   const [viewport, setViewport] = React.useState<ViewportProps>({ width, height, latitude, longitude, zoom });
 
@@ -32,11 +41,14 @@ export const TmsMap: React.FC<Props> = props => {
     () =>
       setViewport({
         ...viewport,
+        longitude,
+        latitude,
+        zoom,
         width,
         height,
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [width, height, vpLat, vpLng, vpZoom]
+    [width, height, zoom, longitude, latitude]
   );
 
   const [popupInfo, setPopupInfo] = React.useState<CustomMarkerProp | null>(null);
