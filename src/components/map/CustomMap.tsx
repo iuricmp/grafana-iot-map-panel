@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ReactMapGL, { NavigationControl, Popup, ViewportProps } from 'react-map-gl';
+import ReactMapGL, { NavigationControl, Popup, ViewportProps, WebMercatorViewport } from 'react-map-gl';
 import Markers from './Markers';
 import VehicleInfo from './CustomMarkerPopupInfo';
 import { CustomMarkerProp } from './CustomMarkerProp';
@@ -19,27 +19,19 @@ interface Props {
   data: CustomMarkerProp[];
 }
 
-const fixValue = (value: any): number => Number(parseFloat(value).toFixed(7));
-
 export const TmsMap: React.FC<Props> = props => {
   const styles = getStyles();
-  const { token, styleUrl, width, height, vpDefined, vpLat, vpLng, vpZoom, data } = props;
+  const { token, styleUrl, width, height, vpLat, vpLng, vpZoom, data } = props;
 
-  const [viewport, setViewport] = React.useState<ViewportProps>({
-    width,
-    height,
-    latitude: fixValue(vpLat),
-    longitude: fixValue(vpLng),
-    zoom: Number(vpZoom),
-  });
+  const MARKERS_BOUNDS = getBounds(data);
+  const { longitude, latitude, zoom } = new WebMercatorViewport({ width, height }).fitBounds(MARKERS_BOUNDS);
+
+  const [viewport, setViewport] = React.useState<ViewportProps>({ width, height, latitude, longitude, zoom });
 
   React.useEffect(
     () =>
       setViewport({
         ...viewport,
-        latitude: fixValue(vpLat),
-        longitude: fixValue(vpLng),
-        zoom: Number(vpZoom),
         width,
         height,
       }),
@@ -47,14 +39,12 @@ export const TmsMap: React.FC<Props> = props => {
     [width, height, vpLat, vpLng, vpZoom]
   );
 
-  const MARKERS_BOUNDS = data.length > 0 ? getBounds(data) : [];
-
   const [popupInfo, setPopupInfo] = React.useState<CustomMarkerProp | null>(null);
 
   return (
     <ReactMapGL
       {...viewport}
-      fitBounds={MARKERS_BOUNDS}
+      // visibilityConstraints={MARKERS_BOUNDS}
       mapStyle={styleUrl}
       mapboxApiAccessToken={token}
       onViewportChange={(nextViewport: ViewportProps) => setViewport(nextViewport)}
