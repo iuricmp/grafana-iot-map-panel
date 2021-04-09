@@ -20,13 +20,7 @@ function Markers(props: Props): JSX.Element {
   const { data, onClick } = props;
 
   const mp = data.map((item, index) => (
-    <Marker
-      offsetLeft={-10}
-      offsetTop={-20}
-      key={`marker-${index}`}
-      longitude={item.longitude}
-      latitude={item.latitude}
-    >
+    <Marker offsetLeft={-10} offsetTop={-20} key={`marker-${index}`} longitude={item.longitude} latitude={item.latitude}>
       <Tooltip content={formatTooltip(item)}>
         <i className="fa fa-truck" onClick={() => onClick(item)}></i>
       </Tooltip>
