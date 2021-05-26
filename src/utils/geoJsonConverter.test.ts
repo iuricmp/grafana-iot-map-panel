@@ -1,8 +1,7 @@
-import CsvRecord from '../model/csvRecord';
 import CustomMarkerProp from '../model/CustomMarkerProp';
 import * as geoJsonConverter from './geoJsonConverter';
 
-const createRecord = (latitude, longitude, datetime, label): CustomMarkerProp => {
+const createRecord = (latitude: number, longitude: number, datetime: string, label: string): CustomMarkerProp => {
   return {
     latitude,
     longitude,

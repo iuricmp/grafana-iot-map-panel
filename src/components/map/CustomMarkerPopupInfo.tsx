@@ -1,6 +1,6 @@
 import { Card, TagList } from '@grafana/ui';
 import React from 'react';
-import { CustomMarkerProp } from './CustomMarkerProp';
+import CustomMarkerProp from '../../model/CustomMarkerProp';
 import { dateTime } from '@grafana/data';
 
 export default function CustomMarkerPopupInfo(props: CustomMarkerProp) {

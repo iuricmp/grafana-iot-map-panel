@@ -1,18 +1,22 @@
 import React from 'react';
-import { PanelProps } from '@grafana/data';
-import { SimpleOptions } from 'types';
 import { css, cx } from 'emotion';
+import { PanelProps } from '@grafana/data';
 import { stylesFactory } from '@grafana/ui';
+import PluginOptions from './model/pluginOptions';
 import { CustomMap } from './components/map/CustomMap';
-import './style.css';
-import { useData } from './hooks/MapHooks';
+import { toDataProp } from './utils/grafanaDataConverter';
+import { toGeoJson } from './utils/geoJsonConverter';
+import CustomMarkerProp from 'model/CustomMarkerProp';
 
-interface Props extends PanelProps<SimpleOptions> {}
+import './style.css';
+
+interface Props extends PanelProps<PluginOptions> {}
 
 export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) => {
   const styles = getStyles();
 
-  const mapboxData = useData(data);
+  const mapboxData: CustomMarkerProp[] = toDataProp(data);
+  const geoJsonFeatureCollection = toGeoJson(mapboxData);
 
   if (!options.mapboxToken) {
     return <h3>A valid API access token is required to use Mapbox data</h3>;
@@ -37,7 +41,7 @@ export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) =
         styleUrl={options.mapboxStyleUrl}
         width={width}
         height={height}
-        data={mapboxData}
+        data={geoJsonFeatureCollection}
       />
     </div>
   );
