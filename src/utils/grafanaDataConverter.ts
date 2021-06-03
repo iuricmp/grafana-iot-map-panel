@@ -1,7 +1,7 @@
 import { PanelData, DataFrame } from '@grafana/data';
-import CustomMarkerProp from '../model/CustomMarkerProp';
+import DataMapProp from '../model/DataMapProp';
 
-export const toDataProp = (data: PanelData): CustomMarkerProp[] => {
+export const toDataProp = (data: PanelData): DataMapProp[] => {
   if (!data || data.series.length <= 0) {
     return [];
   }
@@ -22,7 +22,7 @@ export const toDataProp = (data: PanelData): CustomMarkerProp[] => {
   const labelValues = labelField.values.toArray();
   const dateValues = datetimeField.values.toArray();
 
-  const markers: CustomMarkerProp[] = [];
+  const markers: DataMapProp[] = [];
 
   for (let index = 0; index < length; index++) {
     markers.push({

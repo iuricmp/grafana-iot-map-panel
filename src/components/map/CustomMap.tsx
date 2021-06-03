@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ReactMapGL, { Layer, LinearInterpolator, MapRef, NavigationControl, Popup, Source, ViewportProps, WebMercatorViewport } from 'react-map-gl';
 import VehicleInfo from './CustomMarkerPopupInfo';
-import CustomMarkerProp from '../../model/CustomMarkerProp';
+import DataMapProp from '../../model/DataMapProp';
 import { stylesFactory } from '@grafana/ui';
 import { css } from 'emotion';
 import { getBounds } from '../../utils/mapUtils';
@@ -38,7 +38,7 @@ export const CustomMap: React.FC<Props> = props => {
   const [viewport, setViewport] = React.useState<ViewportProps>({ width, height, latitude, longitude, zoom });
   const [imagesLoaded, setImagesLoaded] = React.useState(false);
   const mapRef = React.useRef<MapRef>(null);
-  const [popupInfo, setPopupInfo] = React.useState<CustomMarkerProp | null>(null);
+  const [popupInfo, setPopupInfo] = React.useState<DataMapProp | null>(null);
 
   const getMap = () => mapRef?.current?.getMap();
 
@@ -78,11 +78,13 @@ export const CustomMap: React.FC<Props> = props => {
     }
     const feature = event.features[0];
     const clusterId = feature.properties.cluster_id;
+    console.log('event', event);
+    console.log('event 2', { ...feature.properties });
     console.log('feature', feature);
     console.log('clusterId', clusterId);
 
     if (feature.layer.id === 'unclustered-point') {
-      //setPopupInfo(toCustomMarkerProp(feature));
+      //setPopupInfo(toDataMapProp(feature));
     } else {
       expansionZoom(clusterId, feature);
     }

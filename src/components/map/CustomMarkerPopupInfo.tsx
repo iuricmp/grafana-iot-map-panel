@@ -1,9 +1,9 @@
 import { Card, TagList } from '@grafana/ui';
 import React from 'react';
-import CustomMarkerProp from '../../model/CustomMarkerProp';
+import DataMapProp from '../../model/DataMapProp';
 import { dateTime } from '@grafana/data';
 
-export default function CustomMarkerPopupInfo(props: CustomMarkerProp) {
+export default function CustomMarkerPopupInfo(props: DataMapProp) {
   const { label, latitude, longitude, datetime: dt } = props;
   return (
     <Card heading={label}>

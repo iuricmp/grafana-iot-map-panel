@@ -1,7 +1,7 @@
-import CustomMarkerProp from '../model/CustomMarkerProp';
+import DataMapProp from '../model/DataMapProp';
 import * as geoJsonConverter from './geoJsonConverter';
 
-const createRecord = (latitude: number, longitude: number, datetime: string, label: string): CustomMarkerProp => {
+const createRecord = (latitude: number, longitude: number, datetime: string, label: string): DataMapProp => {
   return {
     latitude,
     longitude,
@@ -11,7 +11,7 @@ const createRecord = (latitude: number, longitude: number, datetime: string, lab
 };
 
 describe('GeoJson utility converter', () => {
-  const CSV_RECORDS: CustomMarkerProp[] = [
+  const CSV_RECORDS: DataMapProp[] = [
     createRecord(-22.945548, -43.0601787, '2018-04-13T08:30:06Z', 'TRAINING'),
     createRecord(-22.9621505, -42.9904898, '2021-03-31T18:28:22Z', 'TRKU2C97'),
     createRecord(-22.974022, -43.0347287, '2021-03-29T09:23:13Z', 'VJE0c78'),

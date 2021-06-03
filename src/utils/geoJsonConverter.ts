@@ -1,7 +1,7 @@
-import CustomMarkerProp from '../model/CustomMarkerProp';
+import DataMapProp from '../model/DataMapProp';
 import geojson from 'geojson';
 
-export const toGeoJson = (data: CustomMarkerProp[]): geojson.FeatureCollection => {
+export const toGeoJson = (data: DataMapProp[]): geojson.FeatureCollection => {
   const features: geojson.Feature[] = data.map(item => {
     const feature: geojson.Feature = {
       type: 'Feature',

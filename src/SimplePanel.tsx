@@ -6,7 +6,7 @@ import PluginOptions from './model/pluginOptions';
 import { CustomMap } from './components/map/CustomMap';
 import { toDataProp } from './utils/grafanaDataConverter';
 import { toGeoJson } from './utils/geoJsonConverter';
-import CustomMarkerProp from 'model/CustomMarkerProp';
+import DataMapProp from 'model/DataMapProp';
 
 import './style.css';
 
@@ -15,7 +15,7 @@ interface Props extends PanelProps<PluginOptions> {}
 export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) => {
   const styles = getStyles();
 
-  const mapboxData: CustomMarkerProp[] = toDataProp(data);
+  const mapboxData: DataMapProp[] = toDataProp(data);
   const geoJsonFeatureCollection = toGeoJson(mapboxData);
 
   if (!options.mapboxToken) {
