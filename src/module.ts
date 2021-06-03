@@ -1,8 +1,8 @@
 import { PanelPlugin } from '@grafana/data';
-import { SimpleOptions } from './types';
+import PluginOptions from './model/pluginOptions';
 import { SimplePanel } from './SimplePanel';
 
-export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOptions(builder => {
+export const plugin = new PanelPlugin<PluginOptions>(SimplePanel).setPanelOptions(builder => {
   return builder
     .addTextInput({
       path: 'mapboxStyleUrl',
@@ -30,17 +30,20 @@ export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOption
       name: 'Initial Default Latitude',
       defaultValue: '37.776021',
       category: ['Mapbox'],
+      showIf: config => !config.vpFitBounds,
     })
     .addTextInput({
       path: 'vpLng',
       name: 'Initial Default Longitude',
       defaultValue: '-122.4171949',
       category: ['Mapbox'],
+      showIf: config => !config.vpFitBounds,
     })
     .addTextInput({
       path: 'vpZoom',
       name: 'Initial Default Zoom',
       defaultValue: '14',
       category: ['Mapbox'],
+      showIf: config => !config.vpFitBounds,
     });
 });

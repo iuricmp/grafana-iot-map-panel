@@ -1,11 +1,13 @@
 import * as React from 'react';
-import ReactMapGL, { NavigationControl, Popup, ViewportProps, WebMercatorViewport } from 'react-map-gl';
-import Markers from './Markers';
+import ReactMapGL, { Layer, LinearInterpolator, MapRef, NavigationControl, Popup, Source, ViewportProps, WebMercatorViewport } from 'react-map-gl';
 import VehicleInfo from './CustomMarkerPopupInfo';
-import { CustomMarkerProp } from './CustomMarkerProp';
+import CustomMarkerProp from '../../model/CustomMarkerProp';
 import { stylesFactory } from '@grafana/ui';
 import { css } from 'emotion';
-import { getBounds } from './mapUtils';
+import { getBounds } from '../../utils/mapUtils';
+import { clusterLayer, clusterCountLayer, unclusteredPointLayer } from './layers';
+import { FeatureCollection } from 'geojson';
+import vehicleIcon from './vehicle.png';
 
 interface Props {
   token: string;
@@ -16,13 +18,13 @@ interface Props {
   vpLat: number;
   vpLng: number;
   vpZoom: number;
-  data: CustomMarkerProp[];
+  data: FeatureCollection;
 }
 
-const getInitialValues = (fitBounds: boolean, markers: CustomMarkerProp[], width: number, height: number, lat: number, lng: number, zoomDefault: number) => {
-  if (fitBounds && markers.length > 0) {
-    const markerBounds = getBounds(markers);
-    const { longitude, latitude, zoom } = new WebMercatorViewport({ width, height }).fitBounds(markerBounds, { padding: 40 });
+const getInitialValues = (fitBounds: boolean, featureCol: FeatureCollection, width: number, height: number, lat: number, lng: number, zoomDefault: number) => {
+  if (fitBounds && featureCol) {
+    const markerBounds = getBounds(featureCol);
+    const { longitude, latitude, zoom } = new WebMercatorViewport({ width, height }).fitBounds(markerBounds, { padding: 60 });
     return { longitude, latitude, zoom };
   } else {
     return { longitude: Number(lat), latitude: Number(lng), zoom: Number(zoomDefault) };
@@ -32,10 +34,28 @@ const getInitialValues = (fitBounds: boolean, markers: CustomMarkerProp[], width
 export const CustomMap: React.FC<Props> = props => {
   const styles = getStyles();
   const { token, styleUrl, width, height, vpLat, vpLng, vpZoom, data, vpFitBounds } = props;
-
   const { longitude, latitude, zoom } = getInitialValues(vpFitBounds, data, width, height, vpLat, vpLng, vpZoom);
-
   const [viewport, setViewport] = React.useState<ViewportProps>({ width, height, latitude, longitude, zoom });
+  const [imagesLoaded, setImagesLoaded] = React.useState(false);
+  const mapRef = React.useRef<MapRef>(null);
+  const [popupInfo, setPopupInfo] = React.useState<CustomMarkerProp | null>(null);
+
+  const getMap = () => mapRef?.current?.getMap();
+
+  React.useEffect(() => {
+    const map = getMap();
+    if (map) {
+      map.on('load', function () {
+        map.loadImage(vehicleIcon, function (error: any, image: any) {
+          if (error) {
+            throw error;
+          }
+          map.addImage('vehicle', image);
+          setImagesLoaded(true);
+        });
+      });
+    }
+  }, [mapRef]);
 
   React.useEffect(
     () =>
@@ -47,19 +67,58 @@ export const CustomMap: React.FC<Props> = props => {
         width,
         height,
       }),
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [width, height, zoom, longitude, latitude]
   );
 
-  const [popupInfo, setPopupInfo] = React.useState<CustomMarkerProp | null>(null);
+  const onClick = (event: any) => {
+    if (!event || !event.features) {
+      return;
+    }
+    const feature = event.features[0];
+    const clusterId = feature.properties.cluster_id;
+    console.log('feature', feature);
+    console.log('clusterId', clusterId);
+
+    if (feature.layer.id === 'unclustered-point') {
+      //setPopupInfo(toCustomMarkerProp(feature));
+    } else {
+      expansionZoom(clusterId, feature);
+    }
+  };
+
+  const expansionZoom = (clusterId: string, feature: any) => {
+    const map = getMap();
+    if (!map) {
+      return;
+    }
+    const mapboxSource = map.getSource('earthquakes');
+
+    mapboxSource.getClusterExpansionZoom(clusterId, (err: Error, zoom: number) => {
+      if (err || !zoom) {
+        return;
+      }
+
+      setViewport({
+        ...viewport,
+        longitude: feature.geometry.coordinates[0],
+        latitude: feature.geometry.coordinates[1],
+        zoom,
+        transitionDuration: 500,
+      });
+    });
+  };
 
   return (
     <ReactMapGL
       {...viewport}
-      // visibilityConstraints={MARKERS_BOUNDS}
+      transitionInterpolator={new LinearInterpolator()}
+      ref={mapRef}
       mapStyle={styleUrl}
       mapboxApiAccessToken={token}
       onViewportChange={(nextViewport: ViewportProps) => setViewport(nextViewport)}
+      onClick={onClick}
     >
       {popupInfo && (
         <Popup
@@ -74,7 +133,13 @@ export const CustomMap: React.FC<Props> = props => {
           <VehicleInfo {...popupInfo} />
         </Popup>
       )}
-      <Markers data={data} onClick={setPopupInfo} />
+      {imagesLoaded ? (
+        <Source id="earthquakes" type="geojson" data={data} cluster={true} clusterMaxZoom={14} clusterRadius={50}>
+          <Layer {...clusterLayer} />
+          <Layer {...clusterCountLayer} />
+          <Layer {...unclusteredPointLayer} />
+        </Source>
+      ) : null}
       <NavigationControl style={{ position: 'absolute', right: 10, bottom: 50 }} />
     </ReactMapGL>
   );

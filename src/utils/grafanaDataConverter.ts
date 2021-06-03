@@ -1,7 +1,7 @@
 import { PanelData, DataFrame } from '@grafana/data';
-import { CustomMarkerProp } from '../components/map/CustomMarkerProp';
+import CustomMarkerProp from '../model/CustomMarkerProp';
 
-export const useData = (data: PanelData) => {
+export const toDataProp = (data: PanelData): CustomMarkerProp[] => {
   if (!data || data.series.length <= 0) {
     return [];
   }

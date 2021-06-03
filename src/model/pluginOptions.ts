@@ -1,6 +1,6 @@
 type SeriesSize = 'sm' | 'md' | 'lg';
 
-export interface SimpleOptions {
+export default interface PluginOptions {
   text: string;
   mapboxToken: string;
   mapboxStyleUrl: string;

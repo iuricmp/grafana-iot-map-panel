@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { Marker } from 'react-map-gl';
 import { Tooltip } from '@grafana/ui';
-import { CustomMarkerProp } from './CustomMarkerProp';
+import CustomMarkerProp from '../../model/CustomMarkerProp';
 import { dateTime } from '@grafana/data';
 
 interface Props {
