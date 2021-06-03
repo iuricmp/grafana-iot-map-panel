@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ReactMapGL, { Layer, LinearInterpolator, NavigationControl, Popup, Source, ViewportProps, WebMercatorViewport } from 'react-map-gl';
+import ReactMapGL, { Layer, LinearInterpolator, MapRef, NavigationControl, Popup, Source, ViewportProps, WebMercatorViewport } from 'react-map-gl';
 import VehicleInfo from './CustomMarkerPopupInfo';
 import CustomMarkerProp from '../../model/CustomMarkerProp';
 import { stylesFactory } from '@grafana/ui';
@@ -7,6 +7,7 @@ import { css } from 'emotion';
 import { getBounds } from '../../utils/mapUtils';
 import { clusterLayer, clusterCountLayer, unclusteredPointLayer } from './layers';
 import { FeatureCollection } from 'geojson';
+import vehicleIcon from './vehicle.png';
 
 interface Props {
   token: string;
@@ -33,10 +34,28 @@ const getInitialValues = (fitBounds: boolean, featureCol: FeatureCollection, wid
 export const CustomMap: React.FC<Props> = props => {
   const styles = getStyles();
   const { token, styleUrl, width, height, vpLat, vpLng, vpZoom, data, vpFitBounds } = props;
-
   const { longitude, latitude, zoom } = getInitialValues(vpFitBounds, data, width, height, vpLat, vpLng, vpZoom);
-
   const [viewport, setViewport] = React.useState<ViewportProps>({ width, height, latitude, longitude, zoom });
+  const [imagesLoaded, setImagesLoaded] = React.useState(false);
+  const mapRef = React.useRef<MapRef>(null);
+  const [popupInfo, setPopupInfo] = React.useState<CustomMarkerProp | null>(null);
+
+  const getMap = () => mapRef?.current?.getMap();
+
+  React.useEffect(() => {
+    const map = getMap();
+    if (map) {
+      map.on('load', function () {
+        map.loadImage(vehicleIcon, function (error: any, image: any) {
+          if (error) {
+            throw error;
+          }
+          map.addImage('vehicle', image);
+          setImagesLoaded(true);
+        });
+      });
+    }
+  }, [mapRef]);
 
   React.useEffect(
     () =>
@@ -48,12 +67,10 @@ export const CustomMap: React.FC<Props> = props => {
         width,
         height,
       }),
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [width, height, zoom, longitude, latitude]
   );
-
-  const mapRef = React.useRef(null);
-  const [popupInfo, setPopupInfo] = React.useState<CustomMarkerProp | null>(null);
 
   const onClick = (event: any) => {
     if (!event || !event.features) {
@@ -72,7 +89,11 @@ export const CustomMap: React.FC<Props> = props => {
   };
 
   const expansionZoom = (clusterId: string, feature: any) => {
-    const mapboxSource = mapRef.current.getMap().getSource('earthquakes');
+    const map = getMap();
+    if (!map) {
+      return;
+    }
+    const mapboxSource = map.getSource('earthquakes');
 
     mapboxSource.getClusterExpansionZoom(clusterId, (err: Error, zoom: number) => {
       if (err || !zoom) {
@@ -112,11 +133,13 @@ export const CustomMap: React.FC<Props> = props => {
           <VehicleInfo {...popupInfo} />
         </Popup>
       )}
-      <Source id="earthquakes" type="geojson" data={data} cluster={true} clusterMaxZoom={14} clusterRadius={50}>
-        <Layer {...clusterLayer} />
-        <Layer {...clusterCountLayer} />
-        <Layer {...unclusteredPointLayer} />
-      </Source>
+      {imagesLoaded ? (
+        <Source id="earthquakes" type="geojson" data={data} cluster={true} clusterMaxZoom={14} clusterRadius={50}>
+          <Layer {...clusterLayer} />
+          <Layer {...clusterCountLayer} />
+          <Layer {...unclusteredPointLayer} />
+        </Source>
+      ) : null}
       <NavigationControl style={{ position: 'absolute', right: 10, bottom: 50 }} />
     </ReactMapGL>
   );
