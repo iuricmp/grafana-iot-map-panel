@@ -4,7 +4,9 @@
 
 A panel for Grafana that visualizes IOT GPS points on an interactive map.
 
-![sample](./map-sample.gif)
+![sample](./docs/map-sample.gif)
+
+![sample](./docs/popup.png)
 
 ## Prerequisites
 
