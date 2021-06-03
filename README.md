@@ -19,13 +19,6 @@ A panel for Grafana that visualizes IOT GPS points on an interactive map.
 |-22.974022 |-43.0347287 |2021-03-29T09:23:13Z|VJE0c78 |
 |-22.971599 |-42.9436037 |2021-02-23T14:23:31Z|OPIX4A49|
 
-## How to use
-
-The query in Grafana can be formatted as `Table` or `Time series` and must contains the fields `latitude` and `longitude` or just `lat` and `lon`.
-```
-
----
-
 ## Development
 
 ### What is Grafana Panel Plugin?
