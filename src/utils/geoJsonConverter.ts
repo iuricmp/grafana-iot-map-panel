@@ -5,7 +5,7 @@ export const toGeoJson = (data: DataMapProp[]): geojson.FeatureCollection => {
   const features: geojson.Feature[] = data.map(item => {
     const feature: geojson.Feature = {
       type: 'Feature',
-      properties: { time: `${item.datetime}`, label: item.label },
+      properties: { ...item },
       geometry: { type: 'Point', coordinates: [item.longitude, item.latitude, 0.0] },
     };
     return feature;

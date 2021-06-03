@@ -23,22 +23,22 @@ describe('GeoJson utility converter', () => {
     features: [
       {
         geometry: { coordinates: [-43.0601787, -22.945548, 0], type: 'Point' },
-        properties: { label: 'TRAINING', time: '2018-04-13T08:30:06Z' },
+        properties: { label: 'TRAINING', datetime: '2018-04-13T08:30:06Z', latitude: -22.945548, longitude: -43.0601787 },
         type: 'Feature',
       },
       {
         geometry: { coordinates: [-42.9904898, -22.9621505, 0], type: 'Point' },
-        properties: { label: 'TRKU2C97', time: '2021-03-31T18:28:22Z' },
+        properties: { label: 'TRKU2C97', datetime: '2021-03-31T18:28:22Z', latitude: -22.9621505, longitude: -42.9904898 },
         type: 'Feature',
       },
       {
         geometry: { coordinates: [-43.0347287, -22.974022, 0], type: 'Point' },
-        properties: { label: 'VJE0c78', time: '2021-03-29T09:23:13Z' },
+        properties: { label: 'VJE0c78', datetime: '2021-03-29T09:23:13Z', latitude: -22.974022, longitude: -43.0347287 },
         type: 'Feature',
       },
       {
         geometry: { coordinates: [-42.9436037, -22.971599, 0], type: 'Point' },
-        properties: { label: 'OPIX4A49', time: '2021-02-23T14:23:31Z' },
+        properties: { label: 'OPIX4A49', datetime: '2021-02-23T14:23:31Z', latitude: -22.971599, longitude: -42.9436037 },
         type: 'Feature',
       },
     ],
