@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ReactMapGL, { Layer, LinearInterpolator, MapRef, NavigationControl, Popup, Source, ViewportProps, WebMercatorViewport } from 'react-map-gl';
-import VehicleInfo from './CustomMarkerPopupInfo';
+import VehicleInfo from './PopupInfo';
 import DataMapProp from '../../model/DataMapProp';
 import { stylesFactory } from '@grafana/ui';
 import { css } from 'emotion';
