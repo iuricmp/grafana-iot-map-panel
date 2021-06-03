@@ -78,13 +78,9 @@ export const CustomMap: React.FC<Props> = props => {
     }
     const feature = event.features[0];
     const clusterId = feature.properties.cluster_id;
-    console.log('event', event);
-    console.log('event 2', { ...feature.properties });
-    console.log('feature', feature);
-    console.log('clusterId', clusterId);
 
     if (feature.layer.id === 'unclustered-point') {
-      //setPopupInfo(toDataMapProp(feature));
+      setPopupInfo(feature.properties as DataMapProp);
     } else {
       expansionZoom(clusterId, feature);
     }
