@@ -3,13 +3,26 @@
 # Grafana IOT Map Panel
 
 A panel for Grafana that visualizes IOT GPS points on an interactive map.
-## How to use
 
-The query in Grafana can be formatted as `Table` or `Time series` and contain the fields `latitude` and `longitude` or just `lat` and `lon`.
+![sample](./map-sample.gif)
 
 ## Prerequisites
 
 - MapBox Key and Style. Both can be found in [https://studio.mapbox.com](https://studio.mapbox.com)
+
+- Query: CSV or Table query, eg:
+
+|latitude   |longitude   |datetime            | label  |
+|-----------|------------|--------------------|--------|
+|-22.945548 |-43.0601787 |2018-04-13T08:30:06Z|TRAINING|
+|-22.9621505|-42.9904898 |2021-03-31T18:28:22Z|TRKU2C97|
+|-22.974022 |-43.0347287 |2021-03-29T09:23:13Z|VJE0c78 |
+|-22.971599 |-42.9436037 |2021-02-23T14:23:31Z|OPIX4A49|
+
+## How to use
+
+The query in Grafana can be formatted as `Table` or `Time series` and must contains the fields `latitude` and `longitude` or just `lat` and `lon`.
+```
 
 ---
 
