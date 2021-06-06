@@ -73,20 +73,22 @@ export const CustomMap: React.FC<Props> = props => {
   );
 
   const onClick = (event: any) => {
-    if (!event || !event.features) {
+    if (!event || !event.features || event.features.length === 0) {
       return;
     }
     const feature = event.features[0];
-    const clusterId = feature.properties.cluster_id;
-
     if (feature.layer.id === 'unclustered-point') {
       setPopupInfo(feature.properties as DataMapProp);
     } else {
-      expansionZoom(clusterId, feature);
+      expansionZoom(feature);
     }
   };
 
-  const expansionZoom = (clusterId: string, feature: any) => {
+  const expansionZoom = (feature: any) => {
+    const clusterId = feature.properties.cluster_id;
+    if (!clusterId) {
+      return;
+    }
     const map = getMap();
     if (!map) {
       return;
