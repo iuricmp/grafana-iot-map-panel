@@ -1,10 +1,6 @@
 import { Feature, FeatureCollection, Point } from 'geojson';
 import { maxBy, minBy } from 'lodash';
 
-interface Bound {
-  [index: number]: number;
-}
-
 const enum LatOrLng {
   Lat = 'Lat',
   Lng = 'Lng',
@@ -14,7 +10,7 @@ const enum MinOrMax {
   Max = 'Max',
 }
 
-const DEFAULT_BOUNDS = [
+const DEFAULT_BOUNDS: [[number, number], [number, number]] = [
   [-151.5, 12.0],
   [-87.6, 63.1],
 ];
@@ -37,7 +33,7 @@ const getMinOrMax = (features: Feature[], minOrMax: MinOrMax, latOrLng: LatOrLng
   return getLatOrLng(feature.geometry as Point, latOrLng);
 };
 
-export const getBounds = (collection: FeatureCollection): Bound[] => {
+export const getBounds = (collection: FeatureCollection): [[number, number], [number, number]] => {
   if (!collection || collection.features.length === 0) {
     return DEFAULT_BOUNDS;
   }
