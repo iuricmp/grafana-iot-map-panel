@@ -42,6 +42,13 @@ export const CustomMap: React.FC<Props> = props => {
 
   const getMap = () => mapRef?.current?.getMap();
 
+  const resizeMap = () => {
+    const map = getMap();
+    if (map) {
+      map.resize();
+    }
+  };
+
   React.useEffect(() => {
     const map = getMap();
     if (map) {
@@ -58,7 +65,8 @@ export const CustomMap: React.FC<Props> = props => {
   }, [mapRef]);
 
   React.useEffect(
-    () =>
+    () => {
+      const resize = viewport.width !== width || viewport.height !== height;
       setViewport({
         ...viewport,
         longitude,
@@ -66,7 +74,11 @@ export const CustomMap: React.FC<Props> = props => {
         zoom,
         width,
         height,
-      }),
+      });
+      if (resize) {
+        resizeMap();
+      }
+    },
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [width, height, zoom, longitude, latitude]
