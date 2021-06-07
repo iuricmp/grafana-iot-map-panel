@@ -1,6 +1,11 @@
 import { FeatureCollection } from 'geojson';
 import { getBounds } from './mapUtils';
 
+const EMPTY_FEATURES: FeatureCollection = {
+  type: 'FeatureCollection',
+  features: [],
+};
+
 const FEATURE_COLLECTION: FeatureCollection = {
   type: 'FeatureCollection',
   features: [
@@ -39,6 +44,14 @@ describe('Given a GeoJson Feature Collection containing Points', () => {
     expect(bounds).toEqual([
       [-151.5129, 12.0623],
       [-87.6901, 63.1224],
+    ]);
+  });
+  it('should returns default values for empty Features entry', () => {
+    const bounds = getBounds(EMPTY_FEATURES);
+    expect(bounds).not.toBeNull();
+    expect(bounds).toEqual([
+      [-151.5000, 12.0000],
+      [-87.6000, 63.1000],
     ]);
   });
 });
