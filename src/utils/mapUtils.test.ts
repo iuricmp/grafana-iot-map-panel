@@ -50,8 +50,8 @@ describe('Given a GeoJson Feature Collection containing Points', () => {
     const bounds = getBounds(EMPTY_FEATURES);
     expect(bounds).not.toBeNull();
     expect(bounds).toEqual([
-      [-151.5000, 12.0000],
-      [-87.6000, 63.1000],
+      [-151.5, 12.0],
+      [-87.6, 63.1],
     ]);
   });
 });
