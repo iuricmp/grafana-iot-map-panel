@@ -33,7 +33,9 @@ export const unclusteredPointLayer: LayerProps = {
     'icon-image': 'vehicle', // reference the image
     'icon-size': 1.0,
     'icon-anchor': 'bottom',
+    'icon-allow-overlap': true,
     'text-field': '{label}',
+    'text-allow-overlap': true,
     'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
     'text-max-width': 8,
     'text-size': 11,
