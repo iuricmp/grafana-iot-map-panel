@@ -2,7 +2,7 @@
 
 # Grafana IOT Map Panel
 
-A panel for Grafana that visualizes IOT GPS points on an interactive map.
+Transform your logistics data into actionable insights with our custom-built Grafana plugin. With interactive maps, our plugin visualizes GPS coordinates in real-time, giving you a comprehensive view of your fleet's movements. Make better decisions and improve efficiency with this powerful tool.
 
 ![sample](./docs/map-sample.gif)
 
